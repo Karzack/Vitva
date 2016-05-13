@@ -1,0 +1,34 @@
+package SQLTest;
+
+import java.sql.*;
+
+public class TestSQL {
+	private Connection conn;
+	private PreparedStatement stmt;
+	private ResultSet rs;
+	private String user, password, database;
+	private int host;
+
+	public TestSQL(String user, String password, String database, int host) {
+		establishConnection();
+		this.user = user;
+		this.password = password;
+		this.host = host;
+		this.database = database;
+	}
+
+	public void establishConnection() {
+
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://ddwap.mah.se:" + host + "/" + database , user , password);
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main (String[]args){
+		TestSQL ts = new TestSQL();
+	}
+}

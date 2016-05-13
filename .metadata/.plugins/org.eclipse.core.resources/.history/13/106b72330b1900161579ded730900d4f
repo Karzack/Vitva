@@ -1,0 +1,22 @@
+package SQLTest;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class TestSQL {
+	private Connection conn;
+	PreparedStatement stmt;
+	ResultSet rs;
+	String user, password;
+
+	public TestSQL() {
+		establishConnection();
+	}
+
+	public void establishConnection() {
+	     
+        conn = DriverManager.getConnection("jdbc:mysql://" + user + password);
+	}
+}
