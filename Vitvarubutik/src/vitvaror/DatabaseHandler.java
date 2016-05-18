@@ -78,7 +78,7 @@ public class DatabaseHandler {
 	}
 	
 	public void addArticle(String namn, String tillverkare, String modell, String energiklass, String beskrivning, int pris, int inkopspris, int antal) throws SQLException {
-		PreparedStatement query = connection.prepareStatement( "INSERT INTO artikel(namn, tillverkare, modell, energiklass, beskrivning, pris, inkï¿½pspris, antal) values (?, ?, ?, ?, ?, ?, ?, ?)");
+		PreparedStatement query = connection.prepareStatement( "INSERT INTO artikel(namn, tillverkare, modell, energiklass, beskrivning, pris, inkopspris, antal) values (?, ?, ?, ?, ?, ?, ?, ?)");
 		query.setString(1, namn);
 		query.setString(2, tillverkare);
 		query.setString(3, modell);
@@ -91,7 +91,7 @@ public class DatabaseHandler {
 	}
 	
 	public void updateArticle(int artikelId, String namn, String tillverkare, String modell, String energiklass, String beskrivning, int pris, int inkopspris, int antal) throws SQLException {
-		PreparedStatement query = connection.prepareStatement( "UPDATE kund SET namn=?, tillverkare=?, modell=?, energiklass=?, beskrivning=?, pris=?, inköpspris=?, antal=? WHERE artikelid=?");
+		PreparedStatement query = connection.prepareStatement( "UPDATE kund SET namn=?, tillverkare=?, modell=?, energiklass=?, beskrivning=?, pris=?, inkopspris=?, antal=? WHERE artikelid=?");
 		query.setString(1, namn);
         query.setString(2, tillverkare);
         query.setString(3, modell);
@@ -106,7 +106,7 @@ public class DatabaseHandler {
 
 	public static void main(String[] args) throws SQLException {
 		DatabaseHandler handler = new DatabaseHandler();
-		//handler.addCustomer("Alexander Johansson", "alexanderjoh94@gmail.com", "0707320788", "Sï¿½dra Fï¿½rstadsgatan 132");
+		//handler.addCustomer("Alexander Johansson", "alexanderjoh94@gmail.com", "0707320788", "Södra Förstadsgatan 132");
 		//handler.addArticle("Logitech G35", "Logitech", "G35", "", "Headset", 1000, 700, 150);
 
 		ArrayList<Kund> customerList = handler.getCustomers();
