@@ -22,6 +22,24 @@ public class DatabaseHandler {
 		}
 	}
 
+	public int getCustomerIdByName(String namn) throws SQLException {
+		PreparedStatement query = connection.prepareStatement("SELECT kundid FROM kund WHERE namn=?");
+		query.setString(1, namn);
+        ResultSet rs = query.executeQuery();
+        rs.next();
+        return rs.getInt(1);
+	}
+	
+	public void updateCustomer(int kundid, String namn, String email, String telefonnr, String adress) throws SQLException {
+		PreparedStatement query = connection.prepareStatement( "UPDATE kund SET namn=?, email=?, telefonnr=?, adress=? WHERE kundid=?");
+        query.setString(1, namn);
+        query.setString(2, email);
+        query.setString(3, telefonnr);
+        query.setString(4, adress);
+        query.setInt(5, kundid);
+        query.executeUpdate();
+	}
+	
 	public void addCustomer(String namn, String email, String telefonnr, String adress) throws SQLException {
         PreparedStatement query = connection.prepareStatement( "INSERT INTO kund(namn, email, telefonnr, adress) values (?, ?, ?, ?)");
         query.setString(1, namn);
