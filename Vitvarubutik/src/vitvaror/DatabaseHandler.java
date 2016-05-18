@@ -2,11 +2,10 @@ package vitvaror;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHandler {
 	private static final String DATABASE_USER = "AF2015";
-	private static final String DATABASE_PASS= "mongo";
+	private static final String DATABASE_PASS = "mongo";
 	
 	private Connection connection;
 
