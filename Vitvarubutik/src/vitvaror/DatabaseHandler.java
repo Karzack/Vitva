@@ -89,6 +89,20 @@ public class DatabaseHandler {
 		query.setInt(8, antal);
 		query.executeUpdate();
 	}
+	
+	public void updateArticle(int artikelId, String namn, String tillverkare, String modell, String energiklass, String beskrivning, int pris, int inkopspris, int antal) throws SQLException {
+		PreparedStatement query = connection.prepareStatement( "UPDATE kund SET namn=?, tillverkare=?, modell=?, energiklass=?, beskrivning=?, pris=?, inköpspris=?, antal=? WHERE artikelid=?");
+		query.setString(1, namn);
+        query.setString(2, tillverkare);
+        query.setString(3, modell);
+        query.setString(4, energiklass);
+        query.setString(5, beskrivning);
+        query.setInt(6, pris);
+        query.setInt(7, inkopspris);
+        query.setInt(8, antal);
+        query.setInt(9, artikelId);
+        query.executeUpdate();
+	}
 
 	public static void main(String[] args) throws SQLException {
 		DatabaseHandler handler = new DatabaseHandler();
