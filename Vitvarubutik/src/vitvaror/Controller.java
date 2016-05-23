@@ -39,6 +39,18 @@ public class Controller {
 		databaseHandler.addCustomer(namn, email, telefonnr, adress);
 	}
 	
+	public int addOrder(int kundId, long tid) throws SQLException {
+		return databaseHandler.addOrder(kundId, tid);
+	}
+	
+	public int addOrderrad(int orderId) throws SQLException {
+		return databaseHandler.addOrderrad(orderId);
+	}
+	
+	public void addArticleToOrderrad(int orderradId, Artikel artikel, int antal) throws SQLException {
+		databaseHandler.addArticleToOrderrad(orderradId, artikel, antal);
+	}
+	
 	public static void main(String[] args) throws SQLException {
 		Controller controller = new Controller();
 	}

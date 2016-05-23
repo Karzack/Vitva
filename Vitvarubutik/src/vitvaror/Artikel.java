@@ -96,4 +96,8 @@ public class Artikel {
 	public void setAntal(int antal) {
 		this.antal = antal;
 	}
+	
+	public String toString() {
+		return "Artikel (" + this.artikelId + "): " + this.namn + " - " + this.pris;
+	}
 }

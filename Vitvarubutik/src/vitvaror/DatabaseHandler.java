@@ -121,6 +121,40 @@ public class DatabaseHandler {
         query.setInt(9, artikelId);
         query.executeUpdate();
 	}
+	
+	public int addOrder(int kundId, long tid) throws SQLException {
+		PreparedStatement query = connection.prepareStatement( "INSERT INTO af2015.order(kundid, tid) values (?, ?)");
+		query.setInt(1, kundId);
+		query.setLong(2, tid);
+		query.executeUpdate();
+		
+		PreparedStatement query2 = connection.prepareStatement("SELECT orderid FROM af2015.order WHERE kundid=? AND tid=?");
+		query2.setInt(1, kundId);
+		query2.setLong(2, tid);
+		ResultSet rs = query2.executeQuery();
+		rs.next();
+		return rs.getInt(1);
+	}
+	
+	public int addOrderrad(int orderId) throws SQLException {
+		PreparedStatement query = connection.prepareStatement( "INSERT INTO af2015.orderrad values (null, ?)");
+		query.setInt(1, orderId);
+		query.executeUpdate();
+		
+		PreparedStatement query2 = connection.prepareStatement("SELECT orderradid FROM af2015.orderrad WHERE orderid=?");
+		query2.setInt(1, orderId);
+		ResultSet rs = query2.executeQuery();
+		rs.next();
+		return rs.getInt(1);
+	}
+	
+	public void addArticleToOrderrad(int orderradId, Artikel artikel, int antal) throws SQLException {
+		PreparedStatement query = connection.prepareStatement( "INSERT INTO af2015.har values (?, ?, ?)");
+		query.setInt(1, orderradId);
+		query.setInt(2, artikel.getArtikelId());
+		query.setInt(3, antal);
+		query.executeUpdate();
+	}
 
 	/*public static void main(String[] args) throws SQLException {
 		DatabaseHandler handler = new DatabaseHandler();
