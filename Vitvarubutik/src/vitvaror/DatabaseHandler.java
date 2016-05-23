@@ -156,9 +156,42 @@ public class DatabaseHandler {
 		query.executeUpdate();
 	}
 
+	public ArrayList<Leverantor> getDeliverers() throws SQLException {
+		PreparedStatement query = connection.prepareStatement("SELECT * FROM leverantor");
+		ResultSet rs = query.executeQuery();
+		ArrayList<Leverantor> resList = new ArrayList<Leverantor>();
+		while (rs.next()) {
+			Leverantor row = new Leverantor(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+			resList.add(row);
+		}
+
+		return resList;
+	}
+
+	public void updateDeliverer(int levid, String namn, String telefonnr, String adress) throws SQLException {
+		PreparedStatement query = connection.prepareStatement( "UPDATE kund SET namn=?, telefonnr=?, adress=? WHERE kundid=?");
+		query.setString(1, namn);
+		query.setString(3, telefonnr);
+		query.setString(4, adress);
+		query.setInt(5, levid);
+		query.executeUpdate();
+	}
+
+	public void addDeliverer(String namn, String telefonnr, String adress) throws SQLException {
+		PreparedStatement query = connection.prepareStatement( "INSERT INTO leverantor(namn, telefonnr, adress) values ( ?, ?, ?)");
+		query.setString(1, namn);
+		query.setString(2, telefonnr);
+		query.setString(3, adress);
+		query.executeUpdate();
+	}
+	public void removeDeliverer(int levid) throws SQLException {
+		PreparedStatement query = connection.prepareStatement("DELETE FROM leverantor WHERE levid=?");
+		query.setInt(1, levid);
+		query.executeUpdate();
+	}
 	/*public static void main(String[] args) throws SQLException {
 		DatabaseHandler handler = new DatabaseHandler();
-		//handler.addCustomer("Alexander Johansson", "alexanderjoh94@gmail.com", "0707320788", "Södra Förstadsgatan 132");
+		//handler.addCustomer("Alexander Johansson", "alexanderjoh94@gmail.com", "0707320788", "Sï¿½dra Fï¿½rstadsgatan 132");
 		//handler.addArticle("Logitech G35", "Logitech", "G35", "", "Headset", 1000, 700, 150);
 
 		ArrayList<Kund> customerList = handler.getCustomers();
@@ -166,4 +199,6 @@ public class DatabaseHandler {
 			System.out.println(customer.getNamn() + " " + customer.getKundId());
 		}
 	}*/
+
+	
 }

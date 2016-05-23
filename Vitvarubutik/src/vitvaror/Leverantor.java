@@ -3,9 +3,9 @@ package vitvaror;
 public class Leverantor {
 	private int levid;
 	private String namn;
-	private int telefonr;
+	private String telefonr;
 	private String adress;
-	public Leverantor(int levid, String namn, int telefonr, String adress) {
+	public Leverantor(int levid, String namn, String telefonr, String adress) {
 		
 		this.levid = levid;
 		this.namn = namn;
@@ -24,10 +24,10 @@ public class Leverantor {
 	public void setNamn(String namn) {
 		this.namn = namn;
 	}
-	public int getTelefonr() {
+	public String getTelefonr() {
 		return telefonr;
 	}
-	public void setTelefonr(int telefonr) {
+	public void setTelefonr(String telefonr) {
 		this.telefonr = telefonr;
 	}
 	public String getAdress() {

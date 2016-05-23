@@ -5,12 +5,16 @@ import java.util.ArrayList;
 
 public class Controller {
 	private KundUI kundUI;
+	private LeverantorUI leverantorUI;
 	private OrderUI orderUI;
 	
 	private DatabaseHandler databaseHandler;
 	
 	public Controller() throws SQLException {
 		databaseHandler = new DatabaseHandler();
+		
+		leverantorUI = new LeverantorUI(this);
+		leverantorUI.setVisible(true);
 		
 		kundUI = new KundUI(this);
 		kundUI.setVisible(true);
@@ -27,6 +31,9 @@ public class Controller {
 		return databaseHandler.getArticles();
 	}
 	
+	public ArrayList<Leverantor> getDeliverers() throws SQLException {
+		return databaseHandler.getDeliverers();
+	}
 	public void deleteCustomer(Kund kund) throws SQLException {
 		databaseHandler.removeCustomer(kund.getKundId());
 	}
@@ -54,4 +61,10 @@ public class Controller {
 	public static void main(String[] args) throws SQLException {
 		Controller controller = new Controller();
 	}
+
+	public void deleteDeliverer(Leverantor leverantor) throws SQLException {
+		databaseHandler.removeDeliverer(leverantor.getLevid());
+	}
+
+	
 }
