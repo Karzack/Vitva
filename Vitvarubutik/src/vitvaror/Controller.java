@@ -1,12 +1,11 @@
 package vitvaror;
 
-import java.awt.EventQueue;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Controller {
 	private KundUI kundUI;
+	private OrderUI orderUI;
 	
 	private DatabaseHandler databaseHandler;
 	
@@ -15,10 +14,17 @@ public class Controller {
 		
 		kundUI = new KundUI(this);
 		kundUI.setVisible(true);
+		
+		orderUI = new OrderUI(this);
+		orderUI.setVisible(true);
 	}
 	
 	public ArrayList<Kund> getCustomers() throws SQLException {
 		return databaseHandler.getCustomers();
+	}
+	
+	public ArrayList<Artikel> getArticles() throws SQLException {
+		return databaseHandler.getArticles();
 	}
 	
 	public void deleteCustomer(Kund kund) throws SQLException {

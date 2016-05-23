@@ -19,8 +19,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
@@ -242,7 +240,7 @@ public class KundUI extends JFrame {
 	    kundList = controller.getCustomers();
 	    for(Kund k : kundList){
 	         model.addElement(k.toString());
-	    }    
+	    }
 	    
 	    listKund.setModel(model);
 	    listKund.setSelectedIndex(0);
