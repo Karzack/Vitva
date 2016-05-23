@@ -55,4 +55,9 @@ public class Kund {
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
+	
+	@Override
+	public String toString() {
+		return "KundID (" + this.kundId + "): " + this.namn;
+	}
 }

@@ -62,15 +62,21 @@ public class DatabaseHandler {
 	}
 
 	public Kund getCustomer(int kundId) throws SQLException {
-		PreparedStatement query = connection.prepareStatement("SELECT * FROM kund where kundid=?");
+		PreparedStatement query = connection.prepareStatement("SELECT * FROM kund WHERE kundid=?");
 		query.setInt(1, kundId);
 		ResultSet rs = query.executeQuery();
 		rs.next();
 		return new Kund(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
 	}
 	
+	public void removeCustomer(int kundId) throws SQLException {
+		PreparedStatement query = connection.prepareStatement("DELETE FROM kund WHERE kundid=?");
+		query.setInt(1, kundId);
+		query.executeUpdate();
+	}
+	
 	public Artikel getArticle(int artikelId) throws SQLException{
-		PreparedStatement query = connection.prepareStatement("SELECT * FROM artikel where artikelid = ?");
+		PreparedStatement query = connection.prepareStatement("SELECT * FROM artikel WHERE artikelid = ?");
 		query.setInt(1, artikelId);
 		ResultSet rs = query.executeQuery();
 		rs.next();
@@ -104,7 +110,7 @@ public class DatabaseHandler {
         query.executeUpdate();
 	}
 
-	public static void main(String[] args) throws SQLException {
+	/*public static void main(String[] args) throws SQLException {
 		DatabaseHandler handler = new DatabaseHandler();
 		//handler.addCustomer("Alexander Johansson", "alexanderjoh94@gmail.com", "0707320788", "Södra Förstadsgatan 132");
 		//handler.addArticle("Logitech G35", "Logitech", "G35", "", "Headset", 1000, 700, 150);
@@ -113,5 +119,5 @@ public class DatabaseHandler {
 		for(Kund customer : customerList) {
 			System.out.println(customer.getNamn() + " " + customer.getKundId());
 		}
-	}
+	}*/
 }
