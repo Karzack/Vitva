@@ -1,4 +1,4 @@
-package vitvaror;
+﻿package vitvaror;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -187,6 +187,12 @@ public class DatabaseHandler {
 	public void removeDeliverer(int levid) throws SQLException {
 		PreparedStatement query = connection.prepareStatement("DELETE FROM leverantor WHERE levid=?");
 		query.setInt(1, levid);
+		query.executeUpdate();
+	}
+
+pupublic void removeArtikel(int artikelID) throws SQLException {
+		PreparedStatement query = connection.prepareStatement("DELETE FROM artikel WHERE artikelid=?");
+		query.setInt(1, artikelID);
 		query.executeUpdate();
 	}
 	/*public static void main(String[] args) throws SQLException {
