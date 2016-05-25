@@ -89,7 +89,7 @@ public class ArtikelUI extends JFrame {
 	 * @throws SQLException
 	 */
 	public ArtikelUI(Controller controller) throws SQLException {
-		super("Kundhanterare");
+		super("Artikelhanterare");
 		this.controller = controller;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

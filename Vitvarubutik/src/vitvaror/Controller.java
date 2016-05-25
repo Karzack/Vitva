@@ -1,5 +1,6 @@
 package vitvaror;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -7,6 +8,7 @@ public class Controller {
 	private KundUI kundUI;
 	private LeverantorUI leverantorUI;
 	private OrderUI orderUI;
+	private ArtikelUI artikelUI;
 	
 	private DatabaseHandler databaseHandler;
 	
@@ -21,6 +23,9 @@ public class Controller {
 		
 		orderUI = new OrderUI(this);
 		orderUI.setVisible(true);
+		
+		artikelUI = new ArtikelUI(this);
+		artikelUI.setVisible(true);
 	}
 	
 	public ArrayList<Kund> getCustomers() throws SQLException {
@@ -54,6 +59,10 @@ public class Controller {
 		return databaseHandler.addOrderrad(orderId);
 	}
 	
+	public void addArticleToOrderrad(int orderradId, Artikel artikel, int antal) throws SQLException {
+		databaseHandler.addArticleToOrderrad(orderradId, artikel, antal);
+	}
+	
 	public void deleteArticle(Artikel artikel) throws SQLException {
 		databaseHandler.removeArtikel(artikel.getArtikelId());
 	}
@@ -73,6 +82,12 @@ public class Controller {
 	public void deleteDeliverer(Leverantor leverantor) throws SQLException {
 		databaseHandler.removeDeliverer(leverantor.getLevid());
 	}
-
 	
+	public void addDeliverer(String namn, String telefonnr, String adress) throws SQLException {
+		databaseHandler.addDeliverer(namn, telefonnr, adress);
+	}
+	
+	public void updateDeliverer(int levid, String namn, String telefonnr, String adress) throws SQLException {
+		databaseHandler.updateDeliverer(levid, namn, telefonnr, adress);
+	}
 }

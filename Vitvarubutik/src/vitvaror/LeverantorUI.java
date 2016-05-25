@@ -29,19 +29,18 @@ public class LeverantorUI extends JFrame{
 	private static final long serialVersionUID = 6055583905065348375L;
 
 	private JPanel contentPane;
-	private final JLabel lblNewLabel = new JLabel("LeverantörID");
+	private final JLabel lblNewLabel = new JLabel("Leverant\u00F6rID");
 	private final JTextField tfLeverantorID = new JTextField();
 	private final JLabel lblNamn = new JLabel("Namn");
 	private final JLabel lblTelefonnr = new JLabel("Telefonnr");
 	private final JLabel lblAdress = new JLabel("Adress");
 	private final JTextField tfNamn = new JTextField();
-	private final JTextField tfEmail = new JTextField();
 	private final JTextField tfTelefonnr = new JTextField();
 	private final JTextField tfAdress = new JTextField();
 	private final JList listLeverantor = new JList();
-	private final JButton btnSkapaLeverantor = new JButton("Skapa Leverantör");
-	private final JButton btnUppdateraKund = new JButton("Uppdatera Leveranör");
-	private final JButton btnRaderaKund = new JButton("Radera Leverantör");
+	private final JButton btnSkapaLeverantor = new JButton("Skapa Leverant\u00F6r");
+	private final JButton btnUppdateraLeverantor = new JButton("Uppdatera Leveran\u00F6r");
+	private final JButton btnRaderaLeverantor = new JButton("Radera Leverant\u00F6r");
 
 	private Controller controller;
 	private DefaultListModel<String> model;
@@ -53,7 +52,7 @@ public class LeverantorUI extends JFrame{
 	 * @throws SQLException 
 	 */
 	public LeverantorUI(Controller controller) throws SQLException {
-		super("Leverantörhanterare");
+		super("Leverant\u00F6rhanterare");
 		this.controller = controller;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,13 +75,13 @@ public class LeverantorUI extends JFrame{
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		tfLeverantorID.setColumns(10);
 
-		GridBagConstraints gbc_tfKundID = new GridBagConstraints();
-		gbc_tfKundID.insets = new Insets(0, 0, 5, 5);
-		gbc_tfKundID.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfKundID.gridx = 1;
-		gbc_tfKundID.gridy = 0;
+		GridBagConstraints gbc_tfLeverantorID = new GridBagConstraints();
+		gbc_tfLeverantorID.insets = new Insets(0, 0, 5, 5);
+		gbc_tfLeverantorID.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfLeverantorID.gridx = 1;
+		gbc_tfLeverantorID.gridy = 0;
 		tfLeverantorID.setEnabled(false);
-		contentPane.add(tfLeverantorID, gbc_tfKundID);
+		contentPane.add(tfLeverantorID, gbc_tfLeverantorID);
 
 		GridBagConstraints gbc_listKund = new GridBagConstraints();
 		gbc_listKund.gridheight = 5;
@@ -106,7 +105,7 @@ public class LeverantorUI extends JFrame{
 		});
 		listLeverantor.setBorder(new LineBorder(new Color(0, 0, 0)));
 		listLeverantor.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listLeverantor.setPrototypeCellValue("LeverantörID (0): Freja");
+		listLeverantor.setPrototypeCellValue("Leverant�rID (0): Freja");
 		contentPane.add(new JScrollPane(listLeverantor), gbc_listKund);
 
 		GridBagConstraints gbc_lblNamn = new GridBagConstraints();
@@ -123,13 +122,6 @@ public class LeverantorUI extends JFrame{
 		gbc_tfNamn.gridy = 1;
 		tfNamn.setColumns(10);
 		contentPane.add(tfNamn, gbc_tfNamn);
-
-		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
-		gbc_lblEmail.anchor = GridBagConstraints.EAST;
-		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEmail.gridx = 0;
-		gbc_lblEmail.gridy = 2;
-
 
 		GridBagConstraints gbc_lblTelefonnr = new GridBagConstraints();
 		gbc_lblTelefonnr.anchor = GridBagConstraints.EAST;
@@ -168,7 +160,7 @@ public class LeverantorUI extends JFrame{
 		btnSkapaLeverantor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					controller.addCustomer(tfNamn.getText(), tfEmail.getText(), tfTelefonnr.getText(), tfAdress.getText());
+					controller.addDeliverer(tfNamn.getText(), tfTelefonnr.getText(), tfAdress.getText());
 					updateJList();
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -180,7 +172,7 @@ public class LeverantorUI extends JFrame{
 		GridBagConstraints gbc_btnRaderaLeverantor = new GridBagConstraints();
 		gbc_btnRaderaLeverantor.gridx = 2;
 		gbc_btnRaderaLeverantor.gridy = 6;
-		btnRaderaKund.addActionListener(new ActionListener() {
+		btnRaderaLeverantor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Leverantor leverantor = leverantorList.get(listLeverantor.getSelectedIndex());
 				try {
@@ -191,7 +183,7 @@ public class LeverantorUI extends JFrame{
 				}
 			}
 		});
-		contentPane.add(btnRaderaKund, gbc_btnRaderaLeverantor);
+		contentPane.add(btnRaderaLeverantor, gbc_btnRaderaLeverantor);
 
 		GridBagConstraints gbc_btnTomFalt = new GridBagConstraints();
 		gbc_btnTomFalt.insets = new Insets(0, 0, 0, 5);
@@ -201,7 +193,6 @@ public class LeverantorUI extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				tfLeverantorID.setText(null);
 				tfNamn.setText("");
-				tfEmail.setText("");
 				tfTelefonnr.setText("");
 				tfAdress.setText("");
 			}
@@ -212,18 +203,18 @@ public class LeverantorUI extends JFrame{
 		gbc_btnUppdateraKund.insets = new Insets(0, 0, 5, 0);
 		gbc_btnUppdateraKund.gridx = 2;
 		gbc_btnUppdateraKund.gridy = 5;
-		btnUppdateraKund.addActionListener(new ActionListener() {
+		btnUppdateraLeverantor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Leverantor leverantor = leverantorList.get(listLeverantor.getSelectedIndex());
 				try {
-					controller.updateCustomer(leverantor.getLevid(), tfNamn.getText(), tfEmail.getText(), tfTelefonnr.getText(), tfAdress.getText());
+					controller.updateDeliverer(leverantor.getLevid(), tfNamn.getText(), tfTelefonnr.getText(), tfAdress.getText());
 					updateJList();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		contentPane.add(btnUppdateraKund, gbc_btnUppdateraKund);
+		contentPane.add(btnUppdateraLeverantor, gbc_btnUppdateraKund);
 
 		updateJList();
 	}

@@ -36,4 +36,9 @@ public class Leverantor {
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
+	
+	@Override
+	public String toString() {
+		return "Leverantör (" + this.levid + "): " + this.namn;
+	}
 }

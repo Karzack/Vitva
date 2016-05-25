@@ -169,28 +169,29 @@ public class DatabaseHandler {
 	}
 
 	public void updateDeliverer(int levid, String namn, String telefonnr, String adress) throws SQLException {
-		PreparedStatement query = connection.prepareStatement( "UPDATE kund SET namn=?, telefonnr=?, adress=? WHERE kundid=?");
+		PreparedStatement query = connection.prepareStatement( "UPDATE leverantor SET namn=?, telefonnr=?, adress=? WHERE leverantorid=?");
 		query.setString(1, namn);
-		query.setString(3, telefonnr);
-		query.setString(4, adress);
-		query.setInt(5, levid);
+		query.setString(2, telefonnr);
+		query.setString(3, adress);
+		query.setInt(4, levid);
 		query.executeUpdate();
 	}
 
 	public void addDeliverer(String namn, String telefonnr, String adress) throws SQLException {
-		PreparedStatement query = connection.prepareStatement( "INSERT INTO leverantor(namn, telefonnr, adress) values ( ?, ?, ?)");
+		PreparedStatement query = connection.prepareStatement( "INSERT INTO leverantor(namn, telefonnr, adress) values (?, ?, ?)");
 		query.setString(1, namn);
 		query.setString(2, telefonnr);
 		query.setString(3, adress);
 		query.executeUpdate();
 	}
+	
 	public void removeDeliverer(int levid) throws SQLException {
-		PreparedStatement query = connection.prepareStatement("DELETE FROM leverantor WHERE levid=?");
+		PreparedStatement query = connection.prepareStatement("DELETE FROM leverantor WHERE leverantorid=?");
 		query.setInt(1, levid);
 		query.executeUpdate();
 	}
 
-pupublic void removeArtikel(int artikelID) throws SQLException {
+	public void removeArtikel(int artikelID) throws SQLException {
 		PreparedStatement query = connection.prepareStatement("DELETE FROM artikel WHERE artikelid=?");
 		query.setInt(1, artikelID);
 		query.executeUpdate();
