@@ -35,6 +35,7 @@ public class Controller {
 			break;
 
 		case 2:
+			
 			databaseHandler = new DatabaseHandler();
 			orderUI = new OrderUI(this, 2, id);
 			orderUI.setVisible(true);
@@ -118,6 +119,7 @@ public class Controller {
 
 	public Kund getCustomer(int kundId) throws SQLException {
 
+		
 		return databaseHandler.getCustomer(kundId);
 
 	}

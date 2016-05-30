@@ -37,9 +37,10 @@ public class OrderUI extends JFrame {
 	private final JList listKund = new JList();
 	private final JList listArtiklar = new JList();
 	private final JButton btnLaggOrder = new JButton("L\u00E4gg Order");
-
+	private ArrayList<Kund> kundinlogg;
+	private ArrayList<Artikel> artikellogg;
 	private Controller controller;
-	private Artikel answer;
+	private Artikel artikel;
 	private Kund kund;
 	private int id;
 	private DefaultListModel<String> modelKund;
@@ -49,12 +50,16 @@ public class OrderUI extends JFrame {
 	private ArrayList<Artikel> artikelList;
 	private final JLabel lblAntal = new JLabel("Antal:");
 	private final JTextField tfAntal = new JTextField();
-
+	private boolean y = false;
 	private final JLabel lblSokning = new JLabel("Sokning:");
 	private final JTextField tfSokning = new JTextField();
 	private final JButton btnSokning = new JButton("L\u00E4gg Sokning");
 	private final JButton btngetAll = new JButton("Hamta alla Artiklar");
 	private int user;
+	private int kundId = 0;
+	private int artikelId = 0;
+	private int antal;
+	private int sokning;
 
 	/**
 	 * Create the frame.
@@ -80,88 +85,21 @@ public class OrderUI extends JFrame {
 		listArtiklar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listArtiklar.setBorder(new TitledBorder(null, "Artiklar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(new JScrollPane(listArtiklar), "cell 4 0,grow");
-
-		btnLaggOrder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int kundId = listKund.getSelectedIndex();
-				int artikelId = listArtiklar.getSelectedIndex();
-				int antal = 1;
-				try {
-					antal = Integer.parseInt(tfAntal.getText());
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				}
-
-				if (kundId != -1 && artikelId != -1) {
-					Kund kund = kundList.get(kundId);
-					Artikel artikel = artikelList.get(artikelId);
-					try {
-						int orderId = controller.addOrder(kund.getKundId(), System.currentTimeMillis() / 1000L);
-						int orderradId = controller.addOrderrad(orderId);
-
-						controller.addArticleToOrderrad(orderradId, artikel, antal);
-						updateJList();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
 		contentPane.add(btnLaggOrder, "cell 1 1,alignx center,aligny center");
-
 		contentPane.add(lblAntal, "cell 2 1,alignx trailing");
-
 		tfAntal.setColumns(10);
 		contentPane.add(tfAntal, "cell 3 1 2 1,growx");
-
 		contentPane.add(btngetAll, "cell 1 1,alignx center,aligny center");
-
-		btnSokning.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int sokning = 0;
-
-				try {
-					sokning = Integer.parseInt(tfSokning.getText());
-
-				} catch (NumberFormatException e) {
-					System.out.println("Not found");
-				}
-
-				try {
-					
-					modelArtiklar.clear();
-					answer = controller.getArticle(sokning);
-
-				} catch (SQLException e) {
-					System.out.println("Not found internal error");
-					e.printStackTrace();
-				}
-
-				modelArtiklar.addElement(answer.toString());
-				listArtiklar.setModel(modelArtiklar);
-				listArtiklar.setSelectedIndex(0);
-			}
-		});
-
-		btngetAll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					updateJList();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-			}
-		});
-
 		contentPane.add(btnSokning, "cell 1 1,alignx center,aligny center");
 		contentPane.add(lblSokning, "cell 3 1 2 1,growx");
 		tfSokning.setColumns(10);
 		contentPane.add(tfSokning, "cell 3 1 2 1,growx");
-		 updateJList();
+		updateJList();
+		buttonhandler();
 	}
 
 	private void updateJList() throws SQLException {
+
 		switch (user) {
 		case 1:
 			modelKund = new DefaultListModel<String>();
@@ -175,9 +113,10 @@ public class OrderUI extends JFrame {
 
 		case 2:
 			modelKund = new DefaultListModel<String>();
-			kundList=controller.getCustomers();
+
 			kund = controller.getCustomer(id);
-			
+			kundinlogg = new ArrayList<Kund>();
+			kundinlogg.add(kund);
 			modelKund.addElement(kund.toString());
 			listKund.setModel(modelKund);
 			listKund.setSelectedIndex(0);
@@ -192,6 +131,93 @@ public class OrderUI extends JFrame {
 
 		listArtiklar.setModel(modelArtiklar);
 		listArtiklar.setSelectedIndex(0);
+	}
+
+	public void buttonhandler() {
+
+		btnLaggOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				switch (user) {
+				case 1:
+					kundId = listKund.getSelectedIndex();
+					artikelId = listArtiklar.getSelectedIndex();
+					antal = 1;
+					try {
+						antal = Integer.parseInt(tfAntal.getText());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+					if (kundId != -1 && artikelId != -1) {
+						Kund kund = kundList.get(kundId);
+						Artikel artikel = artikelList.get(artikelId);
+						try {
+							int orderId = controller.addOrder(kund.getKundId(), System.currentTimeMillis() / 1000L);
+							int orderradId = controller.addOrderrad(orderId);
+
+							controller.addArticleToOrderrad(orderradId, artikel, antal);
+							updateJList();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+
+					break;
+				case 2:
+
+					antal = 1;
+					Kund kund = kundinlogg.get(0);
+					if (y == true) {
+						artikel = artikellogg.get(0);
+					}
+					if (y == false) {
+						artikelId = listArtiklar.getSelectedIndex();
+						artikel = artikelList.get(artikelId);
+					}
+					try {
+		
+						int orderId2 = controller.addOrder(kund.getKundId(), System.currentTimeMillis() / 1000L);
+						int orderradId2 = controller.addOrderrad(orderId2);
+
+						controller.addArticleToOrderrad(orderradId2, artikel, antal);
+					} catch (SQLException e) {
+
+						e.printStackTrace();
+					}
+					break;
+				}
+			}
+		});
+
+		btnSokning.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				y = true;
+				sokning = Integer.parseInt(tfSokning.getText());
+				modelArtiklar.clear();
+				try {
+					artikel = controller.getArticle(sokning);
+				} catch (SQLException e) {
+
+				}
+				artikellogg = new ArrayList<Artikel>();
+				artikellogg.add(artikel);
+				modelArtiklar.addElement(artikel.toString());
+				listArtiklar.setModel(modelArtiklar);
+				listArtiklar.setSelectedIndex(0);
+
+			}
+		});
+
+		btngetAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					updateJList();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }

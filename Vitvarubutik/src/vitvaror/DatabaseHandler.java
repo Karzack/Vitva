@@ -63,7 +63,7 @@ public class DatabaseHandler {
 
 	public Kund getCustomer(int kundId) throws SQLException {
 		PreparedStatement query = connection.prepareStatement("SELECT * FROM kund WHERE kundid=?");
-		query.setInt(1, kundId);
+		query.setInt(1,kundId);
 		ResultSet rs = query.executeQuery();
 		rs.next();
 		return new Kund(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
