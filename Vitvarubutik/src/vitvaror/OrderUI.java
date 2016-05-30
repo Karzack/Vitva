@@ -164,7 +164,7 @@ public class OrderUI extends JFrame {
 					break;
 				case 2:
 
-					antal = 1;
+					antal = Integer.parseInt(tfAntal.getText());
 					Kund kund = kundinlogg.get(0);
 					if (y == true) {
 						artikel = artikellogg.get(0);
