@@ -196,16 +196,7 @@ public class DatabaseHandler {
 		query.setInt(1, artikelID);
 		query.executeUpdate();
 	}
-	/*public static void main(String[] args) throws SQLException {
-		DatabaseHandler handler = new DatabaseHandler();
-		//handler.addCustomer("Alexander Johansson", "alexanderjoh94@gmail.com", "0707320788", "S�dra F�rstadsgatan 132");
-		//handler.addArticle("Logitech G35", "Logitech", "G35", "", "Headset", 1000, 700, 150);
-
-		ArrayList<Kund> customerList = handler.getCustomers();
-		for(Kund customer : customerList) {
-			System.out.println(customer.getNamn() + " " + customer.getKundId());
-		}
-	}*/
-
 	
+
+
 }

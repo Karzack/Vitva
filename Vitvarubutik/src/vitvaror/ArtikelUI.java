@@ -318,6 +318,9 @@ public class ArtikelUI extends JFrame {
 		btnTomFalt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tfArtikelID.setText(null);
+				tfPris.setText(null);
+				tfInkopspris.setText(null);
+				tfAntal.setText(null);
 				tfNamn.setText("");
 				tfTillverkare.setText("");
 				tfModell.setText("");
@@ -334,8 +337,9 @@ public class ArtikelUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Artikel artikel = artikelList.get(listArtikel.getSelectedIndex());
 				try {
-					controller.updateArticle(artikel.getArtikelId(), tfNamn.getText(), tfTillverkare.getText(),
-							tfModell.getText(), tfEnergiKlass.getText(), tfBeskrivning.getText(),
+					controller.updateArticle(artikel.getArtikelId(), tfNamn.getText(), tfTillverkare.getText(),tfModell.getText(), 
+							tfEnergiKlass.getText(), tfBeskrivning.getText(),
+							
 							(Integer.parseInt(tfPris.getText())), (Integer.parseInt(tfInkopspris.getText())),
 							(Integer.parseInt(tfAntal.getText())));
 					updateJList();
