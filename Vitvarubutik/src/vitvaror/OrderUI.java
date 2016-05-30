@@ -175,7 +175,7 @@ public class OrderUI extends JFrame {
 
 		case 2:
 			modelKund = new DefaultListModel<String>();
-			
+			kundList=controller.getCustomers();
 			kund = controller.getCustomer(id);
 			
 			modelKund.addElement(kund.toString());

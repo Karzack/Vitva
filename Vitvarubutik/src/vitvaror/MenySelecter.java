@@ -52,6 +52,7 @@ public class MenySelecter extends JFrame {
 		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
+		
 
 		JButton btnNewButton = new JButton("Employee");
 		btnNewButton.addActionListener(new ActionListener() {
