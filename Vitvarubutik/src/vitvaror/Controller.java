@@ -12,7 +12,7 @@ public class Controller {
 
 	private DatabaseHandler databaseHandler;
 
-	public Controller(int choice) throws SQLException {
+	public Controller(int choice, int id) throws SQLException {
 		switch (choice) {
 		case 1:
 			databaseHandler = new DatabaseHandler();
@@ -29,16 +29,17 @@ public class Controller {
 			artikelUI.setVisible(true);
 			artikelUI.setLocation(0, 0);
 
-			orderUI = new OrderUI(this);
+			orderUI = new OrderUI(this, 1, id);
 			orderUI.setVisible(true);
 			orderUI.setLocation(900, 0);
 			break;
 
 		case 2:
 			databaseHandler = new DatabaseHandler();
-			orderUI = new OrderUI(this);
+			orderUI = new OrderUI(this, 2, id);
 			orderUI.setVisible(true);
 			orderUI.setLocation(900, 0);
+			
 
 			break;
 		}
@@ -110,8 +111,14 @@ public class Controller {
 	}
 
 	public Artikel getArticle(int artikelId) throws SQLException {
-		
+
 		return databaseHandler.getArticle(artikelId);
+
+	}
+
+	public Kund getCustomer(int kundId) throws SQLException {
+
+		return databaseHandler.getCustomer(kundId);
 
 	}
 }

@@ -10,7 +10,9 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -55,7 +57,7 @@ public class MenySelecter extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new Controller(1);
+					new Controller(1,1);
 					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -67,14 +69,12 @@ public class MenySelecter extends JFrame {
 		JButton btnCustomer = new JButton("Customer");
 		btnCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					
-					new Controller(2);
-					
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-
+				new Inlogg();
+				Inlogg frame = new Inlogg();
+				frame.setVisible(true);
+				frame.setLocation(900, 400);
+				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
 			}
 		});
 

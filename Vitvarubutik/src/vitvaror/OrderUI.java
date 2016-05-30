@@ -39,8 +39,9 @@ public class OrderUI extends JFrame {
 	private final JButton btnLaggOrder = new JButton("L\u00E4gg Order");
 
 	private Controller controller;
-	private Artikel answer;;
-
+	private Artikel answer;
+	private Kund kund;
+	private int id;
 	private DefaultListModel<String> modelKund;
 	private DefaultListModel<String> modelArtiklar;
 
@@ -53,15 +54,18 @@ public class OrderUI extends JFrame {
 	private final JTextField tfSokning = new JTextField();
 	private final JButton btnSokning = new JButton("L\u00E4gg Sokning");
 	private final JButton btngetAll = new JButton("Hamta alla Artiklar");
+	private int user;
 
 	/**
 	 * Create the frame.
 	 * 
 	 * @throws SQLException
 	 */
-	public OrderUI(Controller controller) throws SQLException {
+	public OrderUI(Controller controller, int user, int id) throws SQLException {
 		super("Lägg order");
+		this.user = user;
 		this.controller = controller;
+		this.id = id;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 300);
@@ -109,8 +113,7 @@ public class OrderUI extends JFrame {
 
 		tfAntal.setColumns(10);
 		contentPane.add(tfAntal, "cell 3 1 2 1,growx");
-		
-		
+
 		contentPane.add(btngetAll, "cell 1 1,alignx center,aligny center");
 
 		btnSokning.addActionListener(new ActionListener() {
@@ -123,53 +126,63 @@ public class OrderUI extends JFrame {
 				} catch (NumberFormatException e) {
 					System.out.println("Not found");
 				}
-			
+
 				try {
-					artikelList.clear();
+					
 					modelArtiklar.clear();
 					answer = controller.getArticle(sokning);
-					
-					
+
 				} catch (SQLException e) {
 					System.out.println("Not found internal error");
 					e.printStackTrace();
 				}
-				
-				 modelArtiklar.addElement(answer.toString());
-				 listArtiklar.setModel(modelArtiklar);
-				 listArtiklar.setSelectedIndex(0);
+
+				modelArtiklar.addElement(answer.toString());
+				listArtiklar.setModel(modelArtiklar);
+				listArtiklar.setSelectedIndex(0);
 			}
 		});
-		
+
 		btngetAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					updateJList();
 				} catch (SQLException e) {
-				
+
 					e.printStackTrace();
 				}
 			}
 		});
 
-
 		contentPane.add(btnSokning, "cell 1 1,alignx center,aligny center");
 		contentPane.add(lblSokning, "cell 3 1 2 1,growx");
 		tfSokning.setColumns(10);
 		contentPane.add(tfSokning, "cell 3 1 2 1,growx");
-
-		updateJList();
+		 updateJList();
 	}
 
 	private void updateJList() throws SQLException {
-		modelKund = new DefaultListModel<String>();
-		kundList = controller.getCustomers();
-		for (Kund k : kundList) {
-			modelKund.addElement(k.toString());
-		}
+		switch (user) {
+		case 1:
+			modelKund = new DefaultListModel<String>();
+			kundList = controller.getCustomers();
+			for (Kund k : kundList) {
+				modelKund.addElement(k.toString());
+			}
+			listKund.setModel(modelKund);
+			listKund.setSelectedIndex(0);
+			break;
 
-		listKund.setModel(modelKund);
-		listKund.setSelectedIndex(0);
+		case 2:
+			modelKund = new DefaultListModel<String>();
+			
+			kund = controller.getCustomer(id);
+			
+			modelKund.addElement(kund.toString());
+			listKund.setModel(modelKund);
+			listKund.setSelectedIndex(0);
+			break;
+		}
 
 		modelArtiklar = new DefaultListModel<String>();
 		artikelList = controller.getArticles();
